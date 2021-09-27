@@ -1,0 +1,29 @@
+<section class="header">
+  <div class="container">
+    <p class="lead">Top Rated TV Shows and Movies</p>
+    <div class="header-bar">
+      <ul class="slider-menu">
+        <li>
+          <a [routerLink]="['/']" routerLinkActive="router-link-active"
+            >Movies</a
+          >
+        </li>
+        <li>
+          <a [routerLink]="['/tv-shows']" routerLinkActive="router-link-active"
+            >TV Shows</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div *ngIf="showSearchBar" class="search-box">
+    <input
+      type="text"
+      placeholder="Search..."
+      [(ngModel)]="searchText"
+      (ngModelChange)="onInputChange($event)"
+    />
+    <div class="search"></div>
+  </div>
+</section>

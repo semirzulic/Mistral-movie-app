@@ -1,0 +1,84 @@
+<div class="main">
+  <div class="red-button" (click)="backClicked()">
+    <a>
+      <p>
+        <span class="bg"></span><span class="base"></span
+        ><span class="text">Go Back</span>
+      </p>
+    </a>
+  </div>
+  <div class="details">
+    <div class="details-left">
+      <div *ngIf="usePoster && !videoLoader" class="details-img">
+        <img
+          *ngIf="episode?.backdrop_path"
+          src="https://image.tmdb.org/t/p/w500/{{ episode.backdrop_path }}"
+          alt="Poster Image"
+        />
+        <img
+          *ngIf="!episode?.backdrop_path"
+          src="assets/images/default-movie.jpg"
+          alt="Poster Image"
+        />
+      </div>
+      <div *ngIf="!usePoster && !videoLoader" class="resp-container">
+        <iframe
+          class="resp-iframe e2e-iframe-trusted-src"
+          [src]="safeURL | safe: 'resourceUrl'"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div *ngIf="videoLoader" class="details-img">
+        <div class="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+    <div class="details-right">
+      <h2>{{ episode?.name }}</h2>
+      <p>Reviews: {{ episode?.vote_count }}</p>
+      <p>Seasons: {{ episode?.number_of_seasons }}</p>
+      <p>First Aired Date: {{ episode?.first_air_date | fullDate }}</p>
+      <p class="rate">Rating: {{ episode?.vote_average }} /10</p>
+    </div>
+  </div>
+  <div class="overview">
+    <div class="overview-img">
+      <img
+        *ngIf="episode?.poster_path"
+        src="https://image.tmdb.org/t/p/w500/{{ episode.poster_path }}"
+        alt="Poster Image"
+      />
+      <img
+        *ngIf="!episode?.poster_path"
+        src="assets/images/default-movie.jpg"
+        alt="Poster Image"
+      />
+    </div>
+    <div class="overview-text">
+      <h2>Short Overview:</h2>
+      <p>{{ episode?.overview }}</p>
+      <h3>Rate this Show:</h3>
+      <ul
+        class="list-inline rating-list"
+        *ngFor="let star of stars; let i = index"
+        style="display: inline-block"
+      >
+        <li
+          (click)="countStar(star)"
+          id="{{ 'starId' + i }}"
+          [ngClass]="{ selected: star <= selectedValue }"
+          (mouseover)="addClass(star)"
+          (mouseout)="removeClass(star)"
+        >
+          ★
+          <!-- <i class="mdi mdi-star ">★</i> -->
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

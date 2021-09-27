@@ -1,0 +1,95 @@
+<section class="movies">
+  <div class="main">
+    <h1>Mistral Movies</h1>
+    <hr />
+    <!-- Top 10 -->
+    <ul *ngIf="!searchLength && !loader" class="cards">
+      <li *ngFor="let movie of topRatedMovies" class="cards_item">
+        <a
+          [routerLink]="['/movie-details/' + movie.id]"
+          routerLinkActive="router-link-active"
+        >
+          <div class="card">
+            <div class="card_image">
+              <img
+                *ngIf="movie?.poster_path"
+                src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}"
+                [alt]="movie.title ? movie.title : movie.name"
+              />
+              <img
+                *ngIf="!movie?.poster_path"
+                src="assets/images/default-movie.jpg"
+                [alt]="movie.title ? movie.title : movie.name"
+              />
+            </div>
+            <div class="card_content">
+              <h2 class="card_title">{{ movie.title }}</h2>
+              <p class="card_text">
+                The First Air Date: {{ movie.release_date }}
+              </p>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+    <!-- Searched -->
+    <ul *ngIf="searchLength && !loader" class="cards">
+      <li *ngFor="let movie of searchMovies" class="cards_item">
+        <a
+          [routerLink]="['/movie-details/' + movie.id]"
+          routerLinkActive="router-link-active"
+        >
+          <div class="card">
+            <div class="card_image">
+              <img
+                *ngIf="movie?.poster_path"
+                src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}"
+                [alt]="movie.title ? movie.title : movie.name"
+              />
+              <img
+                *ngIf="!movie?.poster_path"
+                src="assets/images/default-movie.jpg"
+                [alt]="movie.title ? movie.title : movie.name"
+              />
+            </div>
+            <div class="card_content">
+              <h2 class="card_title">{{ movie.title }}</h2>
+              <p class="card_text">
+                The First Air Date: {{ movie.release_date }}
+              </p>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+    <!-- No Results -->
+    <div
+      *ngIf="searchLength && searchMovies.length == 0 && !loader"
+      class="container"
+    >
+      <div class="cards-list">
+        <h3>No Results Found</h3>
+      </div>
+    </div>
+    <!-- Loading -->
+    <div *ngIf="loader" class="container loader">
+      <div class="cards-list">
+        <div class="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+    <hr />
+  </div>
+  <div *ngIf="!searchLength" class="red-button" (click)="loadMoreMovies()">
+    <a>
+      <p>
+        <span class="bg"></span><span class="base"></span
+        ><span class="text">Load More</span>
+      </p>
+    </a>
+  </div>
+</section>
